@@ -21,13 +21,13 @@ class Instructor
     def pass_student( student, test_name )
         #should take in a student instance and test name. If there is a BoatingTest whose name and student match the values passed in, this method should update the status of that BoatingTest to 'passed'. If there is no matching test, this method should create a test with the student, that boat test name, and the status 'passed'. Either way, it should return the BoatingTest instance.
         BoatingTest.new( student, test_name, "passed", self ) if !BoatingTest.all.detect{ | test | test.instructor == self }
-        BoatingTest.all.detect{ | test | test.instructor == self }.status = "passed"
+        BoatingTest.all.each{ | test | test.status = "passed" if test.instructor == self }
     end
 
-    def fail_student
+    def fail_student( student, test_name )
         #should take in a student instance and test name. Like #pass_student, it should try to find a matching BoatingTest and update its status to 'failed'. If it cannot find an existing BoatingTest, it should create one with the name, the matching student, and the status 'failed'.
         BoatingTest.new( student, test_name, "failed", self ) if !BoatingTest.all.detect{ | test | test.instructor == self }
-        BoatingTest.all.detect{ | test | test.instructor == self }.status = "failed"
+        BoatingTest.all.each{ | test | test.status = "failed" if test.instructor == self }
     end
 
     def all_students
